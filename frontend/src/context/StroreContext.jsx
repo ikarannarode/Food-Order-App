@@ -8,9 +8,9 @@ const StoreContextProvider = (props) => {
     const contextValue = {
         food_list
     }
-    return (<StoreContextProvider value={contextValue}>
+    return (<StoreContext.Provider value={contextValue}>
         {props.children}
-    </StoreContextProvider>)
+    </StoreContext.Provider>)
 }
 
 export default StoreContextProvider;
