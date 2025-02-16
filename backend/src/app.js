@@ -11,6 +11,6 @@ app.use(cors())
 import foodRoutes from "./routes/food.route.js";
 app.use("/api/v1", foodRoutes);
 
-
+app.use(express.static('uploads'));
 
 export default app;
