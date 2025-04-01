@@ -20,16 +20,56 @@ const addFood = asyncHandler(async (req, res, next) => {
             category
         });
 
+
         const createdFood = await food.save();
-        res.status(201).json(createdFood);
+        res.status(201).json(
+            {   success:true,
+                message:"Item added successfully..",
+                data:createdFood
+            });
     } catch (error) {
         errorHandler(400, "Failed to add food item", error);
     }
 });
 
 
+const listFood=asyncHandler(async(req,res)=>{
+try {
+  const items=await FOOD.find({});
+  res.status(200).json({
+    success:true,
+    message:"Data fetched",
+    data:items
+  })
+    
+} catch (error) {
+    errorHandler(400, "Failed to fetch food item", error);
+}
+})
+
+
+const removeFood=asyncHandler(async(req,res)=>{
+    try {
+        const {id}=req.body;
+        const item=await FOOD.findById(id);
+        fs.unlink(`uploads/${item.image}`,()=>{   
+        })
+        await FOOD.findByIdAndDelete(id)
+        res.json({
+            success:true,
+            message:"Item removed"
+        })
+        
+    } catch (error) {
+        errorHandler(400, "Failed to delete food item", error);
+    }
+})
+
+
 
 
 export {
-    addFood
+    addFood,
+    listFood,
+    removeFood
 }

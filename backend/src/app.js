@@ -1,16 +1,17 @@
 import express from "express";
 import cors from "cors";
+import foodRoutes from "./routes/food.route.js";
+import userRouter from "./routes/user.route.js"
 const app = express();
 
 //middlewares
-app.use(express.json())
-app.use(cors())
+app.use(express.json());
+app.use(cors());
 
 
 //routes
-import foodRoutes from "./routes/food.route.js";
 app.use("/api/v1", foodRoutes);
 
-app.use(express.static('uploads'));
-
+app.use('/images',express.static('uploads'));
+app.use("/api/user",userRouter)
 export default app;
