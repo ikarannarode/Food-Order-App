@@ -4,7 +4,7 @@ import "./Cart.css";
 import { StoreContext } from "../../context/StroreContext"
 
 const Cart = () => {
-    const { cartItems, food_list, removeFromCart, getTotalCartAmmount } = useContext(StoreContext)
+    const { cartItems, food_list, removeFromCart, getTotalCartAmount,url } = useContext(StoreContext)
     const navigate = useNavigate();
     return (
         <div className="cart">
@@ -21,11 +21,11 @@ const Cart = () => {
                 <hr />
                 {
                     food_list.map((item, index) => {
-                        if (cartItems[item._id] > 0) {
+                        if (cartItems[item._id] > 0) {  
                             return (
-                                <div>
+                                <div key={index}>
                                     <div className="cart-items-title cart-items-item">
-                                        <img src={item.image} alt="" />
+                                        <img src={`${url}/images/${item.image}`} alt="" />
                                         <p>{item.name}</p>
                                         <p>${item.price}</p>
                                         <p>{cartItems[item._id]}</p>
@@ -45,17 +45,17 @@ const Cart = () => {
                     <div>
                         <div className="cart-total-details">
                             <p>Subtotal</p>
-                            <p>${getTotalCartAmmount()}</p>
+                            <p>${getTotalCartAmount()}</p>
                         </div>
                         <hr />
                         <div className="cart-total-details">
                             <p>Delivery Fee</p>
-                            <p>${getTotalCartAmmount() === 0 ? 0 : 2}</p>
+                            <p>${getTotalCartAmount() === 0 ? 0 : 2}</p>
                         </div>
                         <hr />
                         <div className="cart-total-details">
                             <b>Total</b>
-                            <b>${getTotalCartAmmount() === 0 ? 0 : getTotalCartAmmount() + 2}</b>
+                            <b>${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 2}</b>
                         </div>
                     </div>
                     <button onClick={() => navigate("/order")}>Proceed to Checkout</button>
