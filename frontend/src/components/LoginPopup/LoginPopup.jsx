@@ -56,7 +56,7 @@ else{
                     }
                 </button>
                 <div className="login-popup-condition">
-    <input type="checkbox" name="terms" id="terms" />
+    <input type="checkbox" name="terms" id="terms" required/>
     <p>By Continuing, I agree to terms of use & privacy policy.</p>
 </div>
 

@@ -28,6 +28,7 @@
      border: 1px solid tomato;
      width: max(10vw, 120px);
      outline: none;
+     padding:10px;
  }
  
  @media (max-width:1000px){

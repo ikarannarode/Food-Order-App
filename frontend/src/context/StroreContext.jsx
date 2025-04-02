@@ -49,7 +49,7 @@ const loadCartData=async(token)=>{
     console.log('...');
     console.log(response.data.cartData);
 }
-    useEffect(()=>{
+useEffect(()=>{
         async function loadData(){
         await fetchFoodList();
         if(localStorage.getItem("token")){

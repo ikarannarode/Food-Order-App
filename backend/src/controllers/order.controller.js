@@ -2,11 +2,13 @@ import Order from "../models/order.model.js";
 import User from "../models/user.model.js";
 import Stripe from "stripe";
 import asyncHandler from "../utils/asyncHandler.js";
+import {config} from "dotenv"
 
-const stripe = new Stripe('sk_test_51R9CPE2LROw9cqC1qxkXyte3z5Qj50wlzpVv7RXaZ00355p0pgcEDw0tITWpEvXXrAuQPsVNyDr5uqABmXVVnmY600NsWEVHrL');
+config({path:"./.env"})
 
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const placeOrder = asyncHandler(async (req, res) => {
-    const frontend_url = "http://localhost:5173";
+    const frontend_url = process.env.FRONTEND_URL || "http://localhost:5173";
     try {
         const { userId, items, amount, address } = req.body;
 
@@ -63,4 +65,84 @@ const placeOrder = asyncHandler(async (req, res) => {
     }
 });
 
-export { placeOrder };
+const verifyOrder=asyncHandler(async (req,res)=>{
+const {orderId,success}=req.body;
+try {
+    if(success==="true"){
+        await Order.findByIdAndUpdate(orderId,{payment:true});
+        res.json({
+            success:true,
+            message:"Paid"
+        })
+    }
+    else{
+        await findByIdAndDelete(orderId);
+        res.json({success:false,
+            message:"Not paid"
+        })
+    }
+} catch (error) {
+    console.log(error);
+    res.json({
+        success:false,
+        message:"Error"
+    })
+}
+})
+
+
+//USER ORDERS FOR FRONTEND
+
+const userOrders=asyncHandler(async(req,res)=>{
+    try {
+        const {userId}=req.body;
+        const orders=await Order.find({userId});
+        res.json({
+            success:true,
+            data:orders,
+
+        })
+    } catch (error) {
+      console.log(error);
+      res.json({
+        success:false,
+        message:"Error"
+      })  
+    }
+})
+
+// LISTING ORDERS FOR ADMIN
+const listOrders=asyncHandler(async(req,res)=>{
+    try {
+        const orders=await Order.find({});
+        res.json({
+            success:true,
+            data:orders
+        })
+    } catch (error) {
+        console.log(error);
+        res.json({
+            success:false,
+            message:"Error"
+        })
+    }
+})
+
+
+const updateStatus=asyncHandler(async(req,res)=>{
+    try {
+        await Order.findByIdAndUpdate(req.body.orderId,{status:req.body.status})
+        res.json({
+            success:true,
+            message:"Status updated"
+        })
+    } catch (error) {
+        console.log(error);
+        res.json({
+            success:false,
+            message:"Error"
+        })
+    }
+})
+
+export { placeOrder,verifyOrder ,userOrders,listOrders,updateStatus};
