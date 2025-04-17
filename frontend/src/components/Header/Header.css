@@ -1,71 +1,81 @@
-.header {
-    height: 34vw;
-    margin: 30px auto;
-    background-image: url('header_img.png');
-    background-repeat: no-repeat;
-    background-size: contain;
+.hero {
     position: relative;
-
+    width: 100%;
+    min-height: 80vh;
+    background-image: url('https://img.freepik.com/free-photo/chicken-skewers-with-slices-apples-chili-top-view_2829-19996.jpg?t=st=1744890830~exp=1744894430~hmac=0df2d59e7012d647955ea4c5a98fad4d5b5e9bc9f23b45d255efc45b00111477&w=996');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    z-index: 1;
+    border-radius: 10px;
 }
-
-.header-contents {
-    position: absolute;
+  
+  
+  
+  .hero-content {
+    position: relative;
+    z-index: 3; /* above the overlay */
     display: flex;
     flex-direction: column;
-    align-items: start;
-    gap: 1.5vw;
-    max-width: 50%;
-    bottom: 10%;
-    left: 6vw;
-    animation: fadeIn 3s;
-
-}
-
-.header-contents h2 {
-    font-size: max(4.5vw, 22px);
-    color: white;
-    font-weight: 500;
-
-}
-
-.header-contents p {
-    font-size: 1vw;
-    color: white;
-}
-
-.header-contents button {
-    color: #747474;
-    font-weight: 500;
-    padding: 1vw 2.3vw;
-    font-size: max(1vw, 13px);
-    border-radius: 50px;
-    background-color: white;
+    align-items: center;
+    text-align: center;
+    gap: 40px;
+    max-width: 1200px;
+    width: 100%;
+  }
+  
+  @media (min-width: 768px) {
+    .hero-content {
+      flex-direction: row;
+      text-align: left;
+      justify-content: space-between;
+    }
+  }
+  
+  .text-section {
+    max-width: 600px;
+    color: #fff;
+  }
+  
+  .text-section h1 {
+    font-size: 3rem;
+    font-weight: 700;
+  }
+  
+  .highlight {
+    color: rgb(249, 79, 32); /* soft tomato accent */
+  }
+  
+  .text-section p {
+    margin-top: 16px;
+    font-size: 1.1rem;
+    color:white;
+  }
+  
+  .order-btn {
+    margin-top: 24px;
+    padding: 14px 28px;
+    background-color: #fff;
+    color: tomato;
     border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
     cursor: pointer;
-
-}
-
-@media (max-width:1050px) {
-
-
-    .header-contents {
-        max-width: 45%;
-    }
-
-}
-
-@media (max-width:750px) {
-
-    .header-contents {
-        max-width: 65%;
-    }
-
-    .header-contents p {
-        display: none;
-    }
-
-    .header-contents button {
-        padding: 2vw 4vw;
-    }
-
-}
+    transition: background-color 0.3s ease;
+  }
+  
+  .order-btn:hover {
+    background-color: #ffe0dc;
+  }
+  
+  .image-section img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+  
